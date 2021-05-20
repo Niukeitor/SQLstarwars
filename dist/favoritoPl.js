@@ -24,37 +24,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 exports.__esModule = true;
-exports.User = void 0;
+exports.favoritoPl = void 0;
 var typeorm_1 = require("typeorm");
-// import {Planet} from "./Planet"
-var User = /** @class */ (function (_super) {
-    __extends(User, _super);
-    function User() {
+var usuario_1 = require("./usuario");
+var infoPl_1 = require("./infoPl");
+var favoritoPl = /** @class */ (function (_super) {
+    __extends(favoritoPl, _super);
+    function favoritoPl() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
         typeorm_1.PrimaryGeneratedColumn(),
-        __metadata("design:type", Number)
-    ], User.prototype, "id");
+        __metadata("design:type", String)
+    ], favoritoPl.prototype, "id");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], User.prototype, "first_name");
+    ], favoritoPl.prototype, "planetas");
     __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", String)
-    ], User.prototype, "last_name");
+        typeorm_1.ManyToOne(function () { return usuario_1.usuario; }, function (usuario) { return usuario.favoritoPl; }),
+        __metadata("design:type", usuario_1.usuario)
+    ], favoritoPl.prototype, "usuario");
     __decorate([
-        typeorm_1.Column({ unique: true }),
-        __metadata("design:type", String)
-    ], User.prototype, "email");
-    __decorate([
-        typeorm_1.Column({ unique: true }),
-        __metadata("design:type", String)
-    ], User.prototype, "password");
-    User = __decorate([
+        typeorm_1.ManyToMany(function () { return infoPl_1.infoPl; }, function (infoPl) { return infoPl.favoritoPl; }),
+        typeorm_1.JoinTable(),
+        __metadata("design:type", Array)
+    ], favoritoPl.prototype, "infoPl");
+    favoritoPl = __decorate([
         typeorm_1.Entity()
-    ], User);
-    return User;
+    ], favoritoPl);
+    return favoritoPl;
 }(typeorm_1.BaseEntity));
-exports.User = User;
+exports.favoritoPl = favoritoPl;
